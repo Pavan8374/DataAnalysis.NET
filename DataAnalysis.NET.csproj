@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- NuGet package metadata -->
+		<PackageId>Pavan.DataAnalysis.NET</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Pavan kumar</Authors>
+		<Company>Pavan</Company>
+		<Description>Data analysis package for excel files.</Description>
+		<!--<PackageTags>tag1;tag2;tag3</PackageTags>-->
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Pavan8374/DataAnalysis.NET</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Pavan8374/DataAnalysis.NET</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<!-- Generate XML documentation file -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="EPPlus" Version="7.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+</Project>
