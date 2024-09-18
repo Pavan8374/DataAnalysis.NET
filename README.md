@@ -1,4 +1,5 @@
 ﻿# DataAnalysis.NET
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Pavan.DataAnalysis.NET.svg)](https://www.nuget.org/packages/Pavan.DataAnalysis.NET)
 
 DataAnalysis.NET is a powerful .NET library designed for efficient data analysis and manipulation. It provides a flexible DataFrame structure and a suite of tools for reading, writing, cleaning, and analyzing data, with a focus on Excel and CSV file formats.
 Here is the link: https://www.nuget.org/packages/Pavan.DataAnalysis.NET
