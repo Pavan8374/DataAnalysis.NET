@@ -1,14 +1,15 @@
-﻿namespace DataAnalysis.NET
-{
+﻿using DataAnalysis.NET.Core;
 
-    public class DataFrameOperations
+namespace DataAnalysis.NET.Abstractions
+{
+    internal class DataFrameOperations
     {
         /// <summary>
         /// Sum columns using SIMD
         /// </summary>
         /// <param name="df">Data frame</param>
         /// <returns>Sum of the columns</returns>
-        public static double[] SumColumns(DataFrame df)
+        public static double[] SumColumns(IDataFrame df)
         {
             var data = df.GetData();
             var numColumns = df.GetColumns().Count;
@@ -25,7 +26,7 @@
             return sums;
         }
 
-        public static double[] MeanColumns(DataFrame df)
+        public static double[] MeanColumns(IDataFrame df)
         {
             var sums = SumColumns(df);
             var rowCount = df.GetData().Count;
@@ -38,7 +39,7 @@
             return sums;
         }
 
-        public static double[] VarianceColumns(DataFrame df)
+        public static double[] VarianceColumns(IDataFrame df)
         {
             var mean = MeanColumns(df);
             var data = df.GetData();
@@ -87,11 +88,7 @@
                 var aggregatedValue = aggregationFunc(group.Value.ToArray());
                 pivotTable.AddRow(new double[] { group.Key, aggregatedValue });
             }
-
             return pivotTable;
         }
-
-
     }
-
 }

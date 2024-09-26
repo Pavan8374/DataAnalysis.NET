@@ -1,9 +1,13 @@
-﻿namespace DataAnalysis.NET
-{
+﻿using DataAnalysis.NET.Core;
 
+namespace DataAnalysis.NET.Abstractions
+{
+    /// <summary>
+    /// Excel reader
+    /// </summary>
     public class ExcelReader
     {
-        public static DataFrame ReadCsv(string filePath)
+        public static IDataFrame ReadCsv(string filePath)
         {
             var lines = File.ReadAllLines(filePath);
             var columns = new List<string>(lines[0].Split(','));
@@ -18,7 +22,7 @@
             return dataFrame;
         }
 
-        public static void WriteCsv(string filePath, DataFrame df)
+        public static void WriteCsv(string filePath, IDataFrame df)
         {
             using (var writer = new StreamWriter(filePath))
             {
