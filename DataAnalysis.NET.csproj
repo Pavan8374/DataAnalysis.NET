@@ -3,29 +3,27 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
 		<!-- NuGet package metadata -->
 		<PackageId>Pavan.DataAnalysis.NET</PackageId>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Authors>Pavan kumar</Authors>
 		<Company>Pavan</Company>
-		<Description>Data analysis package for excel files.</Description>
-		<!--<PackageTags>tag1;tag2;tag3</PackageTags>-->
+		<Description>Pavan.DataAnalysis.NET is a powerful .NET library for data analysis and manipulation. It supports multiple file formats including CSV and Excel, offering high-level data processing, cleaning, transformation, and advanced analysis capabilities. With built-in support for DataFrame operations, pivot tables, and SIMD-accelerated computations, it's designed for both simplicity and performance. Join us in building a robust C# Data Science community and experience data analysis the .NET way!</Description>
+		<PackageTags>data-analysis;csv;excel;data-science;data-processing;data-cleaning;data-manipulation;data-transformation;pivot-table;dataframe;csharp;dotnet</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/Pavan8374/DataAnalysis.NET</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Pavan8374/DataAnalysis.NET</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-
 		<!-- Generate XML documentation file -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
-
 	<ItemGroup>
+		<PackageReference Include="CsvHelper" Version="33.0.1" />
 		<PackageReference Include="EPPlus" Version="7.3.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<None Include="README.md" Pack="true" PackagePath="\"/>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>

@@ -1,8 +1,18 @@
-﻿namespace DataAnalysis.NET
+﻿using DataAnalysis.NET.Core;
+
+namespace DataAnalysis.NET.Abstractions
 {
-    public class DataCleaner
+    /// <summary>
+    /// Class for cleaning data within a DataFrame.
+    /// </summary>
+    internal class DataCleaner : IDataCleaner
     {
-        public static void ReplaceNaNs(DataFrame df, double replacementValue)
+        /// <summary>
+        /// Replaces all NaN values in the DataFrame with a specified replacement value.
+        /// </summary>
+        /// <param name="df">The DataFrame to clean.</param>
+        /// <param name="replacementValue">The value to replace NaNs with.</param>
+        public void ReplaceNaNs(IDataFrame df, double replacementValue)
         {
             var data = df.GetData();
             for (int i = 0; i < data.Count; i++)
@@ -15,14 +25,22 @@
             }
         }
 
-        public static void DropNaNs(DataFrame df)
+        /// <summary>
+        /// Drops all rows from the DataFrame that contain any NaN values.
+        /// </summary>
+        /// <param name="df">The DataFrame to clean.</param>
+        public void DropNaNs(IDataFrame df)
         {
             var data = df.GetData();
+            // Remove rows with any NaN values
             data.RemoveAll(row => Array.Exists(row, double.IsNaN));
         }
 
-
-        public static void ReplaceNaNsWithMean(DataFrame df)
+        /// <summary>
+        /// Replaces all NaN values in each column of the DataFrame with the mean of that column.
+        /// </summary>
+        /// <param name="df">The DataFrame to clean.</param>
+        public void ReplaceNaNsWithMean(IDataFrame df)
         {
             var data = df.GetData();
             var columns = df.GetColumns();
@@ -42,7 +60,8 @@
                     }
                 }
 
-                double mean = sum / count;
+                // Avoid division by zero
+                double mean = count > 0 ? sum / count : 0;
 
                 // Replace NaN values with the column mean
                 for (int row = 0; row < data.Count; row++)
@@ -55,8 +74,13 @@
             }
         }
 
-
-        public static DataFrame FilterRows(DataFrame df, Func<double[], bool> predicate)
+        /// <summary>
+        /// Filters rows in the DataFrame based on a specified predicate function.
+        /// </summary>
+        /// <param name="df">The DataFrame to filter.</param>
+        /// <param name="predicate">A function that defines the filtering criteria.</param>
+        /// <returns>A new DataFrame containing only the rows that satisfy the predicate.</returns>
+        public IDataFrame FilterRows(IDataFrame df, Func<double[], bool> predicate)
         {
             var filteredData = new DataFrame(df.GetColumns());
 
@@ -70,8 +94,5 @@
 
             return filteredData;
         }
-
-
     }
-
 }

@@ -1,16 +1,28 @@
-﻿using OfficeOpenXml;
+﻿using DataAnalysis.NET.Core;
+using OfficeOpenXml;
 
-public class DataFrame
+/// <summary>
+/// Data frame
+/// </summary>
+internal class DataFrame : IDataFrame
 {
     private readonly List<string> _columns;
     private readonly List<double[]> _data;
 
+    /// <summary>
+    /// Created instances for argumnets of this class.
+    /// </summary>
+    /// <param name="columns"></param>
     public DataFrame(List<string> columns)
     {
         _columns = columns;
         _data = new List<double[]>();
     }
 
+    /// <summary>
+    /// Adds a row to the DataFrame.
+    /// </summary>
+    /// <param name="row">An array of doubles representing the row data.</param>
     public void AddRow(double[] row)
     {
         if (row.Length != _columns.Count)
@@ -18,6 +30,11 @@ public class DataFrame
         _data.Add(row);
     }
 
+    /// <summary>
+    /// Gets a column from the DataFrame by index.
+    /// </summary>
+    /// <param name="index">The index of the column to retrieve.</param>
+    /// <returns>An array of doubles representing the column data.</returns>
     public double[] GetColumn(int index)
     {
         double[] column = new double[_data.Count];
@@ -28,11 +45,19 @@ public class DataFrame
         return column;
     }
 
+    /// <summary>
+    /// Gets the list of column names.
+    /// </summary>
+    /// <returns>A list of strings representing the column names.</returns>
     public List<string> GetColumns()
     {
         return _columns;
     }
 
+    /// <summary>
+    /// Gets the list of rows (data) in the DataFrame.
+    /// </summary>
+    /// <returns>A list of double arrays representing the rows of data.</returns>
     public List<double[]> GetData() => _data;
 
     public void Print()
@@ -51,6 +76,11 @@ public class DataFrame
         }
     }
 
+    /// <summary>
+    /// Read file (csv or Xlsx)
+    /// </summary>
+    /// <param name="filePath">File path</param>
+    /// <returns>Dataframe</returns>
     public static DataFrame ReadXlsx(string filePath)
     {
         var columns = new List<string>();
@@ -82,6 +112,11 @@ public class DataFrame
         return df;
     }
 
+    /// <summary>
+    /// Writes data frame into new sheet and save it in new file path.
+    /// </summary>
+    /// <param name="filePath">File path</param>
+    /// <param name="df">Dataframe</param>
     public static void WriteXlsx(string filePath, DataFrame df)
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;

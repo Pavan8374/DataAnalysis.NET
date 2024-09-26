@@ -1,8 +1,9 @@
 ﻿# DataAnalysis.NET
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Pavan.DataAnalysis.NET.svg)](https://www.nuget.org/packages/Pavan.DataAnalysis.NET)
 
-DataAnalysis.NET is a powerful .NET library designed for efficient data analysis and manipulation. It provides a flexible DataFrame structure and a suite of tools for reading, writing, cleaning, and analyzing data, with a focus on Excel and CSV file formats.
+Pavan.DataAnalysis.NET is a powerful .NET library designed for efficient data analysis and manipulation. It provides a flexible DataFrame structure and a suite of tools for reading, writing, cleaning, and analyzing data, with a focus on Excel and CSV file formats.
 Here is the link: https://www.nuget.org/packages/Pavan.DataAnalysis.NET
+
 ## Features
 
 - **DataFrame Structure**: A versatile data structure for holding and manipulating tabular data.
@@ -20,22 +21,67 @@ Here is the link: https://www.nuget.org/packages/Pavan.DataAnalysis.NET
 
 ## Installation
 
-Install DataAnalysis.NET via NuGet Package Manager:
+Install Pavan.DataAnalysis.NET via NuGet Package Manager:
 
 ```
-Install-Package DataAnalysis.NET
+Install-Package Pavan.DataAnalysis.NET
 ```
 
 Or via .NET CLI:
 
 ```
-dotnet add package DataAnalysis.NET
+dotnet add package Pavan.DataAnalysis.NET
 ```
 
 ## Quick Start
 
+### Using Dependency Injection
+
+1. First, add the following using statements to your file:
+
 ```csharp
-using DataAnalysis.NET;
+using Pavan.DataAnalysis.NET;
+using Pavan.DataAnalysis.NET.Abstractions;
+```
+
+2. In your `Program.cs` or startup file, use one of the extension methods provided to register the `IDataAnalysis` interface with the dependency injection container:
+
+```csharp
+// For singleton service (recommended for most cases)
+builder.Services.AddDataAnalysis();
+
+// Or for scoped service
+// builder.Services.AddDataAnalysisScoped();
+
+// Or for transient service
+// builder.Services.AddDataAnalysisTransient();
+```
+
+3. Then, you can inject and use the `IDataAnalysis` interface in your classes:
+
+```csharp
+public class MyAnalysisService
+{
+    private readonly IDataAnalysis _dataAnalysis;
+
+    public MyAnalysisService(IDataAnalysis dataAnalysis)
+    {
+        _dataAnalysis = dataAnalysis;
+    }
+
+    public void PerformAnalysis(string filePath)
+    {
+        _dataAnalysis.LoadData(filePath);
+        _dataAnalysis.AnalyzeData();
+        _dataAnalysis.ExportResults("results.csv", "csv");
+    }
+}
+```
+
+### Basic Usage
+
+```csharp
+using Pavan.DataAnalysis.NET;
 
 // Read a CSV file
 var df = ExcelReader.ReadCsv("data.csv");
@@ -85,9 +131,17 @@ Provides methods for cleaning and filtering data:
 - `ReplaceNaNsWithMean(DataFrame df)`: Replace NaN values with the column mean
 - `FilterRows(DataFrame df, Func<double[], bool> predicate)`: Filter rows based on a custom predicate
 
+### IDataAnalysis Interface
+
+The `IDataAnalysis` interface provides a high-level API for data analysis operations:
+- `LoadData(string filePath)`: Load data from a CSV or Excel file
+- `LoadData(Stream stream)`: Load data from a stream (not implemented in the current version)
+- `AnalyzeData()`: Perform data analysis (implementation may vary)
+- `ExportResults(string filePath, string format)`: Export analysis results to CSV or Excel
+
 ## Excel Support
 
-DataAnalysis.NET includes built-in support for Excel files:
+Pavan.DataAnalysis.NET includes built-in support for Excel files:
 - `DataFrame.ReadXlsx(string filePath)`: Read data from an Excel file into a DataFrame
 - `DataFrame.WriteXlsx(string filePath, DataFrame df)`: Write a DataFrame to an Excel file
 
@@ -113,4 +167,38 @@ If you encounter any issues or have questions, please file an issue on the GitHu
 
 ---
 
-Happy Data Analyzing with DataAnalysis.NET!
+## Building a Data Science Community in .NET
+
+As C# and .NET developers, we have a unique opportunity to contribute to the growing field of data science. While languages like Python and R have traditionally dominated this space, the power and versatility of C# make it an excellent choice for data analysis and machine learning tasks.
+
+### Why C# for Data Science?
+
+1. **Performance**: C# offers superior performance, crucial for handling large datasets and complex computations.
+2. **Type Safety**: The strong typing system in C# helps catch errors early and improves code reliability.
+3. **Integration**: Seamlessly integrate data science workflows into existing .NET applications and ecosystems.
+4. **Tooling**: Leverage the robust IDE support and debugging tools available in the .NET ecosystem.
+5. **Cross-Platform**: With .NET Core, run your data science applications on Windows, Linux, and macOS.
+
+### Join the Movement
+
+By contributing to projects like DataAnalysis.NET and other data science initiatives in the .NET ecosystem, you can:
+
+- **Innovate**: Bring fresh perspectives and ideas from the .NET world to data science challenges.
+- **Learn**: Expand your skillset by applying C# knowledge to new domains.
+- **Collaborate**: Connect with like-minded developers and data scientists, bridging the gap between software engineering and data analysis.
+- **Impact**: Help shape the future of data science in the .NET ecosystem and create tools that empower developers worldwide.
+
+### Get Involved
+
+- Contribute to open-source data science libraries for .NET.
+- Share your experiences and learnings through blog posts, talks, or tutorials.
+- Participate in data science hackathons and competitions using C#.
+- Engage with the community on forums, social media, and at conferences.
+
+Together, we can build a thriving data science community in C# and .NET, creating powerful tools and pushing the boundaries of what's possible in data analysis and machine learning.
+
+Let's code, analyze, and innovate – the .NET way!
+
+---
+
+Happy Data Analyzing with Pavan.DataAnalysis.NET!
